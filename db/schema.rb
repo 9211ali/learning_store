@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_24_073348) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_24_175749) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -75,6 +75,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_24_073348) do
     t.string "stripe_price_id"
   end
 
+  create_table "lesson_users", force: :cascade do |t|
+    t.bigint "lesson_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_lesson_users_on_lesson_id"
+    t.index ["user_id"], name: "index_lesson_users_on_user_id"
+  end
+
   create_table "lessons", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -104,5 +114,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_24_073348) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "lesson_users", "lessons"
+  add_foreign_key "lesson_users", "users"
   add_foreign_key "lessons", "courses"
 end
