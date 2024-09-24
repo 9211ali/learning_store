@@ -61,3 +61,4 @@ end
 gem "font-awesome-sass"
 
 gem "devise", "~> 4.9"
+gem "letter_opener", group: :development
